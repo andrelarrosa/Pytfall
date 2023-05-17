@@ -1,6 +1,9 @@
 import pygame
 from pygame.locals import *
 
-class Player:
+class Player(pygame.sprite.Sprite):
 
-    def __animation__():
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.sprites = []
+        
