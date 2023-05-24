@@ -1,9 +1,43 @@
 import pygame
-from screen import *
+# from screen import *
 from pygame.locals import *
-from physics import *
+from engine import *
 
 pygame.init()
+
+
+class Screen:
+
+    def __screen__():
+        width = 1080
+        height = 720
+        fl_height = 450
+        screen = pygame.display.set_mode((width, height))
+        bg = pygame.image.load("images/Background.png")
+        fl = pygame.image.load("images/Floor.png")
+        screen.blit(bg, (0, 0))
+        screen.blit(fl, (0, fl_height))
+
+    def aplicarGravidade():
+        global vel_y
+        global y
+        global gravity
+        global vel_x
+        global x
+        gravity = 9.8
+        vel_y = 0
+        vel_x = 0
+        x = 100
+        y = 100
+        # Limitar a atualização da tela para 60 quadros por segundo
+        time = pygame.time.Clock().tick(60)
+        # Aplicação da gravidade
+        # 0 = 0 + vel_y - 1/2 * gravity * t^2
+        vel_y = 0.5 * gravity * time**2
+        # Atualização da posição do objeto
+        x += vel_x
+        y += vel_y
+
 Screen.__screen__()
 pygame.display.set_caption('Pytfall')
 
@@ -25,7 +59,7 @@ y = 100
 width = 50
 height = 50
 vel_x = 0
-vel_y = 0
+vel_y = 10
 gravity = 0.5
 
 # Plataforma
@@ -33,6 +67,9 @@ platform_width = 800
 platform_height = 20
 platform_x = screen_width // 2 - platform_width // 2
 platform_y = screen_height - platform_height - 10
+
+
+
 
 # Função para desenhar o objeto e a plataforma na tela
 def draw_objects():
@@ -47,15 +84,11 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+    Screen.aplicarGravidade()
 
-    # Atualização da posição do objeto
-    x += vel_x
-    y += vel_y
-
-    # Aplicação da gravidade
-    vel_y += gravity
-    if(vel_y>20):
-        vel_x += gravity * 4
+    # # Atualização da posição do objeto
+    # x += vel_x
+    # y += vel_y
 
     # Colisão com a plataforma
     if y + height >= platform_y and vel_y >= 0:
@@ -70,7 +103,6 @@ while running:
     # Desenhar os objetos na tela
     draw_objects()
 
-    # Limitar a atualização da tela para 60 quadros por segundo
     pygame.time.Clock().tick(60)
 
 # Encerrar o Pygame

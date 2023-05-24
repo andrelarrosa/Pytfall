@@ -1,18 +1,8 @@
 import pygame
 from pygame.locals import *
 
-class Physics:
-    x:int
-    y:int
-    width:int
-    height:int
-    vel_x:int
-    vel_y:int
-    gravity:float
-    platform_width:int
-    platform_height:int
-    platform_x:int 
-    platform_y:int 
+class Engine:
+   
     def __init__(self, screen_width, screen_height):
         self.x = 100
         self.y = 100
@@ -20,7 +10,6 @@ class Physics:
         self.height = 50
         self.vel_x = 0
         self.vel_y = 0
-        self.gravity = 0.5
         self.platform_width = 800
         self.platform_height = 20
         self.platform_x = screen_width // 2 - self.platform_width // 2
@@ -29,12 +18,6 @@ class Physics:
     def atualizarPosicaoObjeto(self):
         self.x += vel_x
         self.y += vel_y
-
-    def aplicarGravidade(self):
-        # Aplicação da gravidade
-        self.vel_y += self.gravity
-        if (self.vel_y > 20):
-            self.vel_x += self.gravity * 4
 
     def colisaoPlataforma(self):
         # Colisão com a plataforma

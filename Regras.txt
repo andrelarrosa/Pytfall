@@ -1,0 +1,23 @@
+Pytfall:
+
+jogo:
+- boneco corre apenas para a direita;
+- boneco apenas pula, não existe cipó;
+- apenas um obstaculo que vai ser criado por comando;
+- blocos para colisão;
+
+física:
+- gravidade;
+- definir vetores e velocidade;
+- colisão;
+- pulo em vertical entre eixo x e y;
+
+cenário:
+- background;
+- blocos para colisão;
+
+
+TODO:
+
+- criar a classe (Objeto) para não utilizar variaveis globais 'passar todas as variaveis'
+- corrigir como são utilizado as classes
