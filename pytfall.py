@@ -2,10 +2,14 @@ import pygame
 from screen import Screen
 from pygame.locals import *
 from engine import *
+from gameObject import GameObject
 
 
 screen = Screen()
 screen.iniciarTela()
+
+objeto = GameObject(100, 100, 50, 50, 0, 0)
+objeto.desenharObjeto(screen)
 
 # tela.aplicarGravidade()
 # pygame.display.set_caption('Pytfall')
@@ -37,7 +41,7 @@ screen.iniciarTela()
 # platform_x = screen_width // 2 - platform_width // 2
 # platform_y = screen_height - platform_height - 10
 
-
+#width, height, vel_x, vel_y, x, y
 
 
 # # Função para desenhar o objeto e a plataforma na tela
@@ -47,7 +51,7 @@ screen.iniciarTela()
 #     pygame.draw.rect(screen, RED, (platform_x, platform_y, platform_width, platform_height))
 #     pygame.display.update()
 
-# # Loop principal do jogo
+# Loop principal do jogo
 # running = True
 # while running:
 #     for event in pygame.event.get():
