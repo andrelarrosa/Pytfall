@@ -1,5 +1,3 @@
-from screen import Screen
-
 class GameObject:
     def __init__(self, x: int, y: int, width: int, height: int, vel_x: float, vel_y: float):
         self.x = x
@@ -15,7 +13,4 @@ class GameObject:
 
         novaPosicaoY = self.y + self.vel_y * pygame.time.Clock().tick(60)
         self.y = novaPosicaoY
-    def desenharObjeto(screen: Screen):
-        RED = (255, 0, 0)
-        pygame.draw.rect(screen, RED, (self.x, self.y, self.width, self.height))
-        pygame.display.update()
+        

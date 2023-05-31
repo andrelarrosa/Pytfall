@@ -11,9 +11,6 @@ class Engine:
         self.vel_x = 0
         self.vel_y = 0
 
-
-
-
     def colisaoPlataforma(self):
         # Colisão com a plataforma
         if self.y + self.height >= self.platform_y and self.vel_y >= 0:
