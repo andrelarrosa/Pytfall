@@ -1,14 +1,14 @@
 import pygame
 from pygame.locals import *
 from gameObject import GameObject
+from player import Player
 
-class Screen:
+class GameScreen:
 
     def __init__(self):
         pygame.init()
         pygame.display.set_caption('Pytfall')
         self.gravity = 9.8
-        self.vel_y = 0
         self.width = 1080
         self.height = 720
         self.fl_height = 450
@@ -18,17 +18,19 @@ class Screen:
         self.screen.blit(self.bg, (0, 0))
         self.screen.blit(self.fl, (0, self.fl_height))
         self.objectList = []
+        # self.lastTime = 0
+        self.dt = 0
+        self.player = None
         self.running = True
 
     def desenharTela(self):
         self.screen.blit(self.bg, (0, 0))
         self.screen.blit(self.fl, (0, self.fl_height))
     
-    def aplicarGravidade(self):
-        # Limitar a atualização da tela para 60 quadros por segundo
-        time = pygame.time.Clock().tick(60)
-        # Aplicação da gravidade
-        self.vel_y = 0.5 * self.gravity * time**2
+    def physics(self, dt):
+        for obj in self.objectList:
+            obj.x = obj.x + obj.vel_x * dt
+            obj.y = obj.y + obj.vel_y * dt
 
     def adicionarObjeto(self, obj: GameObject):
         self.objectList.append(obj)
@@ -36,22 +38,33 @@ class Screen:
     def renderObjects(self):
         self.desenharTela()
         for obj in self.objectList:
-            # obj.desenharObjeto(self.screen)
-            RED = (255, 0, 0)
-            pygame.draw.rect(self.screen, RED, (obj.x, obj.y, obj.width, obj.height))
+            obj.renderObjects(self.screen)
 
-        
         pygame.display.flip()
 
+    def initGame(self):
+        # objeto = GameObject(10, 435, 50, 50, 0, 0)
+        self.player = Player(10, 435, 50, 50, 0, 0)
+        self.adicionarObjeto(self.player)
 
-    def iniciarTela(self):
+    def lacoPrincipal(self):
         while self.running:
             for event in pygame.event.get():
                 if event.type == QUIT:
                     self.running = False
 
-            self.aplicarGravidade()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RIGHT:
+                        self.player.vel_x = 100.0
+
+                elif event.type == pygame.KEYUP:    
+                    if event.key == pygame.K_RIGHT:
+                        self.player.vel_x = 0.0
+
+
+            self.physics(self.dt)
             self.renderObjects()
+            self.dt = pygame.time.Clock().tick(60)/1000.0
         pygame.quit()
 
 

@@ -1,9 +1,10 @@
 import pygame
-from pygame.locals import *
 
-class Player(pygame.sprite.Sprite):
+from gameObject import GameObject
 
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.sprites = []
-        
+class Player(GameObject):
+
+    def __init__(self, x: int, y: int, width: int, height: int, vel_x: float, vel_y: float):
+        super().__init__(x, y, width, height, vel_x, vel_y)
+          
+                    
