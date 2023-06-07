@@ -1,13 +1,14 @@
 import pygame
 
 class GameObject:
-    def __init__(self, x: int, y: int, width: int, height: int, vel_x: float, vel_y: float):
+    def __init__(self, x: int, y: int, width: int, height: int, vel_x: float, vel_y: float, is_gravity: bool = False):
         self.x = x
         self.y = y
         self.width = width
         self.height = height
         self.vel_x = vel_x
         self.vel_y = vel_y
+        self.is_gravity = is_gravity
 
     def renderObjects(self, screen):
         RED = (255, 0, 0)

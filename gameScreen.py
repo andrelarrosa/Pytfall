@@ -8,7 +8,7 @@ class GameScreen:
     def __init__(self):
         pygame.init()
         pygame.display.set_caption('Pytfall')
-        self.gravity = 9.8
+        self.gravity = 400.0
         self.width = 1080
         self.height = 720
         self.fl_height = 450
@@ -29,6 +29,8 @@ class GameScreen:
     
     def physics(self, dt):
         for obj in self.objectList:
+            if obj.is_gravity:
+                obj.vel_y += self.gravity * dt
             obj.x = obj.x + obj.vel_x * dt
             obj.y = obj.y + obj.vel_y * dt
 
@@ -39,13 +41,14 @@ class GameScreen:
         self.desenharTela()
         for obj in self.objectList:
             obj.renderObjects(self.screen)
-
+        
         pygame.display.flip()
 
     def initGame(self):
-        # objeto = GameObject(10, 435, 50, 50, 0, 0)
-        self.player = Player(10, 435, 50, 50, 0, 0)
+        objeto = GameObject(0, 485, 1080, 20, 0, 0)
+        self.player = Player(10, 435, 50, 50, 0, 0, True)
         self.adicionarObjeto(self.player)
+        self.adicionarObjeto(objeto)
 
     def lacoPrincipal(self):
         while self.running:
@@ -55,11 +58,15 @@ class GameScreen:
 
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RIGHT:
-                        self.player.vel_x = 100.0
+                        self.player.vel_x = 700.0
+                    if event.key == pygame.K_UP:
+                        self.player.vel_y = -200.0
 
                 elif event.type == pygame.KEYUP:    
                     if event.key == pygame.K_RIGHT:
                         self.player.vel_x = 0.0
+                    
+                
 
 
             self.physics(self.dt)
