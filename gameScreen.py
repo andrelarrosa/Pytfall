@@ -11,7 +11,7 @@ class GameScreen:
     def __init__(self):
         pygame.init()
         pygame.display.set_caption('Pytfall')
-        self.gravity = 400.0
+        self.gravity = 600.0
         self.width = 1080
         self.height = 720
         self.fl_height = 450
@@ -21,7 +21,6 @@ class GameScreen:
         self.screen.blit(self.bg, (0, 0))
         self.screen.blit(self.fl, (0, self.fl_height))
         self.objectList = []
-        # self.lastTime = 0
         self.dt = 0
         self.player = None
         self.platform = None
@@ -33,6 +32,8 @@ class GameScreen:
         self.screen.blit(self.fl, (0, self.fl_height))
     
     def physics(self, dt):
+        for obj in self.objectList:
+            obj.pre_physics()
         for obj in self.objectList:
             if obj.is_gravity:
                 obj.vel_y += self.gravity * dt
@@ -46,6 +47,7 @@ class GameScreen:
         if obj.y + obj.height >= obj_platform.y:
             obj.vel_y = 0
             obj.y = obj_platform.y - obj.height
+            obj.is_collided_platform = True
 
     def objectsCollided(self, obj: GameObject, obj_2: GameObject):
         if (obj.object_type == ObjectEnum.PLATFORM ):
@@ -85,20 +87,21 @@ class GameScreen:
 
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RIGHT:
-                        self.player.vel_x = 700.0
+                        self.player.vel_x = 300.0
+                    if event.key == pygame.K_LEFT:
+                        self.player.vel_x = -300.0
                     if event.key == pygame.K_UP:
-                        self.player.vel_y = -200.0
+                        if self.player.is_collided_platform:
+                            self.player.vel_y = -300.0
 
                 elif event.type == pygame.KEYUP:    
                     if event.key == pygame.K_RIGHT:
                         self.player.vel_x = 0.0
-                    
-                
-
+                     
             self.physics(self.dt)
-            # self.engine.colisaoPlataforma(self.platform)
-            self.renderObjects()
             self.collision()
+            self.renderObjects()
+            
             self.dt = pygame.time.Clock().tick(60)/1000.0
         pygame.quit()
 

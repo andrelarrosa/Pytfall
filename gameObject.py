@@ -20,8 +20,12 @@ class GameObject:
         self.vel_y = vel_y
         self.is_gravity = is_gravity
         self.object_type = object_type
+        self.is_collided_platform = False
 
     def renderObjects(self, screen):
         RED = (255, 0, 0)
         pygame.draw.rect(screen, RED, (self.x, self.y, self.width, self.height))
+
+    def pre_physics(self):
+        self.is_collided_platform = False
         
