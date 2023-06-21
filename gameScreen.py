@@ -65,7 +65,7 @@ class GameScreen:
     def renderObjects(self):
         self.desenharTela()
         for obj in self.objectList:
-            obj.renderObjects(self.screen)
+            obj.renderObjects(self.screen, obj.object_type ==ObjectEnum.HITBOX)
         
         pygame.display.flip()
 
@@ -75,6 +75,7 @@ class GameScreen:
         self.player = Player(10, 435, 50, 50, 0, 0, True, ObjectEnum.PLAYER)
         self.adicionarObjeto(self.platform)
         self.adicionarObjeto(self.player)
+        self.adicionarObjeto(self.player.hitbox)
         
 
     def lacoPrincipal(self):
@@ -86,12 +87,15 @@ class GameScreen:
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RIGHT:
                         self.player.vel_x = 700.0
+                        self.player.hitbox.vel_x = 700.0
                     if event.key == pygame.K_UP:
                         self.player.vel_y = -200.0
+                        self.player.hitbox.vel_y = -200.0
 
                 elif event.type == pygame.KEYUP:    
                     if event.key == pygame.K_RIGHT:
                         self.player.vel_x = 0.0
+                        self.player.hitbox.vel_x = 0.0
                     
                 
 
