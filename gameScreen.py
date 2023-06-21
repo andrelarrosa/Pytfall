@@ -97,6 +97,8 @@ class GameScreen:
                 elif event.type == pygame.KEYUP:    
                     if event.key == pygame.K_RIGHT:
                         self.player.vel_x = 0.0
+                    if event.key == pygame.K_LEFT:
+                        self.player.vel_x = 0.0
                      
             self.physics(self.dt)
             self.collision()
