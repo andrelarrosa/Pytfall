@@ -11,13 +11,13 @@ class GameScreen:
     def __init__(self):
         pygame.init()
         pygame.display.set_caption('Pytfall')
-        self.gravity = 600.0
+        self.gravity = 3000.0
         self.width = 1080
         self.height = 720
         self.fl_height = 450
         self.screen = pygame.display.set_mode((self.width, self.height))
-        self.bg = pygame.image.load("images/Background.png")
-        self.fl = pygame.image.load("images/Floor.png")
+        self.bg = pygame.image.load("Sprites/Background.png")
+        self.fl = pygame.image.load("Sprites/Environment/Floor.png")
         self.screen.blit(self.bg, (0, 0))
         self.screen.blit(self.fl, (0, self.fl_height))
         self.objectList = []
@@ -87,12 +87,12 @@ class GameScreen:
 
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RIGHT:
-                        self.player.vel_x = 300.0
+                        self.player.vel_x = 500.0
                     if event.key == pygame.K_LEFT:
-                        self.player.vel_x = -300.0
+                        self.player.vel_x = -500.0
                     if event.key == pygame.K_UP:
                         if self.player.is_collided_platform:
-                            self.player.vel_y = -300.0
+                            self.player.vel_y = -850.0
 
                 elif event.type == pygame.KEYUP:    
                     if event.key == pygame.K_RIGHT:
