@@ -6,8 +6,7 @@ from engine import *
 from gameObject import GameObject
 from engine import Engine
 
-# screen = GameScreen()
-# screen.initGame()
+
 
 menu = GameMenu()
-menu.initGame()
+menu.initGameMenu()

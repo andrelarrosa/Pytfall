@@ -18,8 +18,6 @@ class GameScreen:
         self.screen = pygame.display.set_mode((self.width, self.height))
         self.bg = pygame.image.load("Sprites/Background.png")
         self.fl = pygame.image.load("Sprites/Environment/Floor.png")
-        self.screen.blit(self.bg, (0, 0))
-        self.screen.blit(self.fl, (0, self.fl_height))
         self.objectList = []
         self.dt = 0
         self.player = None
@@ -79,6 +77,7 @@ class GameScreen:
         self.adicionarObjeto(self.player)
         self.lacoPrincipal()
         
+        
 
     def lacoPrincipal(self):
         while self.running:
@@ -91,12 +90,16 @@ class GameScreen:
                     if event.key == pygame.K_UP:
                         if self.player.is_collided_platform:
                             self.player.vel_y = -850.0
+                    if event.key == pygame.K_q:
+                        pygame.mixer.music.stop()
+                        pygame.quit()
+                        self.running = False
 
                 elif event.type == pygame.KEYUP:    
                     if event.key == pygame.K_RIGHT:
                         self.player.vel_x = 0.0
                     if event.key == pygame.K_LEFT:
-                        self.player.vel_x = 0.0
+                        self.player.vel_x = 0.0     
                      
             self.physics(self.dt)
             self.collision()

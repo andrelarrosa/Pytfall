@@ -17,19 +17,26 @@ class GameMenu:
         self.soundWhoosh = pygame.mixer.Sound('Sounds/whoosh.wav')
         pygame.mixer.music.load('Sounds/metallica.wav')
         pygame.mixer.music.play(-1)
+        self.initialized = False
+        self.gameScreen = GameScreen()
+        self.running = True
 
-    def initGame(self):
+
+    def telaMenu(self):
         self.screen.blit(self.backgroundMenu, (0, 0))
-        self.screen.blit(self.buttonPlay, (300, 476))
-        self.screen.blit(self.buttonPlay, (600, 476))
+        self.screen.blit(self.buttonPlay, (467, 417))
+        self.screen.blit(self.buttonQuit, (466, 576))
 
+    def initGameMenu(self):
+        while self.running:
+            self.telaMenu()
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_p and not self.initialized:
+                    self.soundWhoosh.play()
+                    self.initialized = True
+                    # self.gameScreen.initGame() -- Separar em outra classe que irá controlar os eventos
 
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_p and not self.initializated:
-                self.soundWhoosh.play()
-                GameScreen.initGame();
-
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_q:
-                pygame.mixer.music.stop()
-                pygame.quit()
-                GameScreen.running = False
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_q:
+                    pygame.mixer.music.stop()
+                    pygame.quit()
+                    self.running = False
