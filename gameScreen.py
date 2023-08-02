@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 from gameObject import GameObject, ObjectEnum
-from player import Player
+from player import Player, PlayerSprite
 from engine import Engine
 
 
@@ -21,6 +21,7 @@ class GameScreen:
         self.objectList = []
         self.dt = 0
         self.player = None
+        self.sprite = None
         self.platform = None
         self.engine = None
         self.running = True
@@ -99,7 +100,10 @@ class GameScreen:
                     if event.key == pygame.K_RIGHT:
                         self.player.vel_x = 0.0
                     if event.key == pygame.K_LEFT:
-                        self.player.vel_x = 0.0     
+                        self.player.vel_x = 0.0 
+                
+                elif event.type == QUIT:
+                    exit()    
                      
             self.physics(self.dt)
             self.collision()

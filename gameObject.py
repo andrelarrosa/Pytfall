@@ -7,9 +7,6 @@ class ObjectEnum(Enum):
     PLATFORM = 2
 
 
-# ObjectEnum = Enum('ObjectEnum', ['PLAYER', 'PLATFORM'])
-
-
 class GameObject:
     def __init__(self, x: int, y: int, width: int, height: int, vel_x: float, vel_y: float, is_gravity: bool = False, object_type: ObjectEnum = 0):
         self.x = x

@@ -34,8 +34,7 @@ class GameMenu:
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_p and not self.initialized:
                     self.soundWhoosh.play()
                     self.initialized = True
-                    # self.gameScreen.initGame() -- Separar em outra classe que irá controlar os eventos
-
+                    self.gameScreen.initGame()
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_q:
                     pygame.mixer.music.stop()
                     pygame.quit()
