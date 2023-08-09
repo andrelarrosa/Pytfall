@@ -19,8 +19,7 @@ class GameObject:
         self.is_collided_platform = False
 
     def renderObjects(self, screen):
-        RED = (255, 0, 0)       
-        pygame.draw.rect(screen, RED, (self.x, self.y, self.width, self.height))
+        pass
 
     def pre_physics(self):
         self.is_collided_platform = False

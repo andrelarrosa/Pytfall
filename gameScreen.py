@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
 from gameObject import GameObject, ObjectEnum
+from platform import Platform
 from player import Player
 from engine import Engine
 
@@ -72,7 +73,7 @@ class GameScreen:
 
     def initGame(self):
         self.engine = Engine()
-        self.platform = GameObject(0, 485, 1080, 20, 0, 0, False,  ObjectEnum.PLATFORM)
+        self.platform = Platform(0, 485, 1080, 20, 0, 0, False,  ObjectEnum.PLATFORM)
         self.player = Player(10, 435, 50, 50, 0, 0, True, ObjectEnum.PLAYER)
         self.adicionarObjeto(self.platform)
         self.adicionarObjeto(self.player)

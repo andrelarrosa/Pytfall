@@ -14,13 +14,7 @@ import pygame
 import os
 from gameObject import GameObject, ObjectEnum
 
-class Player(GameObject):
-
-    def __init__(self, x: int, y: int, width: int, height: int, vel_x: float, vel_y: float, is_gravity: bool = False, object_type = ObjectEnum):
-        super().__init__(x, y, width, height, vel_x, vel_y, is_gravity, object_type)
-        self.sprite = PlayerSprite()
-           
-          
+        
 
 class PlayerSprite(pygame.sprite.Sprite):
     def __init__(self):
@@ -57,8 +51,8 @@ class PlayerSprite(pygame.sprite.Sprite):
                             bufferArray.append(pygame.image.load('Sprites/Player/{}/{}'.format(name,i)))
                     self.animations[name] = bufferArray
 
-    def renderObjects(self, screen):
-        screen.blit(self.image, (10, 435))
+    
+
 
     def updateSprite(self):
         self.atual = self.atual + 0.06  
@@ -69,3 +63,13 @@ class PlayerSprite(pygame.sprite.Sprite):
 
                     
 #código que pega o evento do teclado tem que ficar aqui
+
+class Player(GameObject):
+
+    def __init__(self, x: int, y: int, width: int, height: int, vel_x: float, vel_y: float, is_gravity: bool = False, object_type=ObjectEnum):
+        super().__init__(x, y, width, height, vel_x, vel_y, is_gravity, object_type)
+        self.sprite = PlayerSprite()
+
+    def renderObjects(self, screen):
+        print("Chegou")
+        screen.blit(self.sprite.image, (100, 200))
