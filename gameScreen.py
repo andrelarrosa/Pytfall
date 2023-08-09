@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 from gameObject import GameObject, ObjectEnum
-from player import Player, PlayerSprite
+from player import Player
 from engine import Engine
 
 

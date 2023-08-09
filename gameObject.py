@@ -1,7 +1,6 @@
 import pygame
 from enum import Enum
 
-
 class ObjectEnum(Enum):
     PLAYER = 1
     PLATFORM = 2
@@ -20,7 +19,7 @@ class GameObject:
         self.is_collided_platform = False
 
     def renderObjects(self, screen):
-        RED = (255, 0, 0)
+        RED = (255, 0, 0)       
         pygame.draw.rect(screen, RED, (self.x, self.y, self.width, self.height))
 
     def pre_physics(self):
