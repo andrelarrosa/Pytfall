@@ -9,4 +9,4 @@ from engine import Engine
 
 
 menu = GameMenu()
-menu.initGameMenu()
+menu.run()
