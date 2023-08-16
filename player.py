@@ -40,7 +40,7 @@ class PlayerSprite(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = (self.image.get_width() / 2,
                             self.image.get_height() / 2)
-    
+
     def load(self):
         if os.path.exists('Sprites/Player/'):
             animationNames = ['Climbing', 'Idle', 'Jumping', 'Running']
@@ -52,13 +52,11 @@ class PlayerSprite(pygame.sprite.Sprite):
                     bufferArray = []
 
                     for i in files:
-                        print("Player arquivo")
-                        print(i)
                         if i.endswith('.png'):
                             bufferArray.append(pygame.image.load('Sprites/Player/{}/{}'.format(name,i)))
                     self.animations[name] = bufferArray
 
-                    
+
 #código que pega o evento do teclado tem que ficar aqui
 
 class Player(GameObject):
@@ -111,7 +109,7 @@ class Player(GameObject):
 
     def renderObjects(self, screen, dt):
         screen.blit(self.sprite.image, (self.x, self.y))
-        
+
         if(self.state == ObjectState.RUNNING):
             self.stateRunningDt += dt
 
@@ -120,7 +118,7 @@ class Player(GameObject):
 
                 if(self.stateRunning > 4):
                     self.stateRunning = 0
-                
+
                 self.stateRunningDt = 0
                 self.sprite.changeSprite(ObjectState.RUNNING.value, self.stateRunning)
 

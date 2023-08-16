@@ -10,10 +10,10 @@ class GameMenu:
         self.height = 720
         self.screen = pygame.display.set_mode((self.width, self.height))
         self.load_assets()
-        pygame.mixer.music.load('Sounds/metallica.wav')
-        pygame.mixer.music.play(-1)
         self.initialized = False
         self.gameScreen = GameScreen()
+        pygame.mixer.music.load('Sounds/menu.wav')
+        pygame.mixer.music.play(-1)
         self.running = True
 
     def load_assets(self):
@@ -35,7 +35,10 @@ class GameMenu:
                     self.soundWhoosh.play()
                     self.initialized = True
                     self.screen.blit(self.backgroundMenu, (0, 0))
+                    pygame.mixer.music.load('Sounds/master-of-puppets.wav')
+                    pygame.mixer.music.play(-1)
                     self.gameScreen.initGame()
+
                 elif event.key == pygame.K_q:
                     pygame.mixer.music.stop()
                     pygame.quit()

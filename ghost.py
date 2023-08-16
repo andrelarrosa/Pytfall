@@ -15,7 +15,6 @@ class GhostSprite(pygame.sprite.Sprite):
         self.animations = {}
         self.atual = 0
         self.load()
-        print(self.animations)
         self.image = self.animations['Running'][0]
         self.rect = self.image.get_rect()
 
@@ -31,15 +30,12 @@ class GhostSprite(pygame.sprite.Sprite):
     def load(self):
         if os.path.exists('Sprites/Environment/Ghost/'):
             animationNames = ['Running']
-            print("chegou aqui")
             for name in animationNames:
                 if os.path.exists('Sprites/Environment/Ghost/'):
                     (path, dir, files) = os.walk(
                         'Sprites/Environment/Ghost/').__next__()
                     bufferArray = []
                     for i in files:
-                        print("arquivo")
-                        print(i)
                         if i.endswith('.png'):
                             bufferArray.append(pygame.image.load('Sprites/Environment/Ghost/{}'.format(i)))
                     self.animations[name] = bufferArray
@@ -73,13 +69,13 @@ class Ghost(GameObject):
         self.updateHitBox()
 
     def goLeft(self):
-        self.vel_x = -500.0
+        self.vel_x = -350.0
         self.changeState(ObjectState.RUNNING)
         self.stateRunning = 0
 
     def renderObjects(self, screen, dt):
         screen.blit(self.sprite.image, (self.x, self.y))
-        
+
         if(self.x < -1 * self.width):
             self.x = 1080
 

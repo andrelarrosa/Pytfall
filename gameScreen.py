@@ -32,7 +32,7 @@ class GameScreen:
     def desenharTela(self):
         self.screen.blit(self.bg, (0, 0))
         self.screen.blit(self.fl, (0, self.fl_height))
-    
+
     def physics(self, dt):
         for obj in self.objectList:
             obj.pre_physics()
@@ -44,7 +44,7 @@ class GameScreen:
 
     def objectsInCollision(self, obj: GameObject, obj_2: GameObject):
         return (abs((obj.x + obj.width/2.0) - (obj_2.x + obj_2.width/2.0)) < ((obj.width + obj_2.width) / 2.0) and abs((obj.y + obj.height/2.0) - (obj_2.y + obj_2.height/2.0)) < ((obj.height + obj_2.height) / 2.0))
-    
+
     def collidedWithPlatform(self, obj_platform: GameObject, obj: GameObject):
         if obj.y + obj.height >= obj_platform.y:
             obj.vel_y = 0
@@ -77,7 +77,7 @@ class GameScreen:
         self.desenharTela()
         for obj in self.objectList:
             obj.renderObjects(self.screen, dt)
-        
+
         pygame.display.flip()
 
     def initGame(self):
@@ -89,8 +89,8 @@ class GameScreen:
         self.adicionarObjeto(self.player)
         self.adicionarObjeto(self.ghost)
         self.lacoPrincipal()
-        
-        
+
+
 
     def lacoPrincipal(self):
         while self.running:
@@ -102,12 +102,12 @@ class GameScreen:
                         pygame.quit()
                         self.running = False
 
-                elif event.type == pygame.KEYUP:    
+                elif event.type == pygame.KEYUP:
                     self.player.key_up(event.key)
-                
+
                 elif event.type == QUIT:
-                    exit()    
-                     
+                    exit()
+
             self.physics(self.dt)
             self.collision()
             self.renderObjects(self.dt)
@@ -118,4 +118,3 @@ class GameScreen:
 
 
 
-   
