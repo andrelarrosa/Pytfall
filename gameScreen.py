@@ -3,6 +3,7 @@ from pygame.locals import *
 from gameObject import GameObject, ObjectEnum
 from platform import Platform
 from player import Player
+from ghost import Ghost
 from engine import Engine
 
 
@@ -22,6 +23,7 @@ class GameScreen:
         self.objectList = []
         self.dt = 0
         self.player = None
+        self.ghost = None
         self.sprite = None
         self.platform = None
         self.engine = None
@@ -75,8 +77,10 @@ class GameScreen:
         self.engine = Engine()
         self.platform = Platform(0, 485, 1080, 20, 0, 0, False,  ObjectEnum.PLATFORM)
         self.player = Player(10, 435, 50, 50, 0, 0, True, ObjectEnum.PLAYER)
+        self.ghost = Ghost(1080, 435, 50, 50, 0, 0, True, ObjectEnum.GHOST)
         self.adicionarObjeto(self.platform)
         self.adicionarObjeto(self.player)
+        self.adicionarObjeto(self.ghost)
         self.lacoPrincipal()
         
         
@@ -100,7 +104,8 @@ class GameScreen:
             self.physics(self.dt)
             self.collision()
             self.renderObjects(self.dt)
-            
+            self.ghost.goLeft()
+
             self.dt = pygame.time.Clock().tick(60)/1000.0
         pygame.quit()
 

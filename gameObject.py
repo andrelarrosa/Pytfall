@@ -4,6 +4,7 @@ from enum import Enum
 class ObjectEnum(Enum):
     PLAYER = 1
     PLATFORM = 2
+    GHOST = 3   
 
 
 class GameObject:

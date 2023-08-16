@@ -7,8 +7,7 @@ class Platform(GameObject):
         super().__init__(x, y, width, height, vel_x, vel_y, is_gravity, object_type)
 
     def renderObjects(self, screen, dt):
-        # print("chegou plataforma")
-        RED = (255, 0, 0)       
+        RED = (189, 189, 49)
         pygame.draw.rect(screen, RED, (self.x, self.y, self.width, self.height))
     
 

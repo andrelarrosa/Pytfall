@@ -19,7 +19,6 @@ from enum import Enum
 class ObjectState(Enum):
     RUNNING = 'Running'
     IDLE = 'Idle'
-    JUMPING = 'Jumping'
 
 
 class PlayerSprite(pygame.sprite.Sprite):
@@ -53,6 +52,8 @@ class PlayerSprite(pygame.sprite.Sprite):
                     bufferArray = []
 
                     for i in files:
+                        print("Player arquivo")
+                        print(i)
                         if i.endswith('.png'):
                             bufferArray.append(pygame.image.load('Sprites/Player/{}/{}'.format(name,i)))
                     self.animations[name] = bufferArray
@@ -78,19 +79,10 @@ class Player(GameObject):
                 self.stateRunning = 0
                 self.sprite.changeSprite(ObjectState.RUNNING.value, 0)
 
-            # elif(newState == ObjectState.JUMPING):
-
         elif(self.state == ObjectState.RUNNING):
             if (newState == ObjectState.IDLE):
                 self.sprite.changeSprite(ObjectState.IDLE.value, 0)
 
-            # elif(newState == ObjectState.JUMPING):
-
-
-        # elif(self.state == ObjectState.JUMPING):
-        #     if (newState == ObjectState.IDLE):
-
-            # elif (newState == ObjectState.RUNNING):
 
         self.state = newState
         self.updateHitBox()
@@ -122,7 +114,7 @@ class Player(GameObject):
         
         if(self.state == ObjectState.RUNNING):
             self.stateRunningDt += dt
-            
+
             if(self.stateRunningDt >= 0.05):
                 self.stateRunning += 1
 
