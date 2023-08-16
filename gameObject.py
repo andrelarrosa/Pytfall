@@ -18,7 +18,7 @@ class GameObject:
         self.object_type = object_type
         self.is_collided_platform = False
 
-    def renderObjects(self, screen):
+    def renderObjects(self, screen, dt):
         pass
 
     def pre_physics(self):

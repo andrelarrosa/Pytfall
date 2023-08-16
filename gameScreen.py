@@ -64,10 +64,10 @@ class GameScreen:
     def adicionarObjeto(self, obj: GameObject):
         self.objectList.append(obj)
 
-    def renderObjects(self):
+    def renderObjects(self, dt):
         self.desenharTela()
         for obj in self.objectList:
-            obj.renderObjects(self.screen)
+            obj.renderObjects(self.screen, dt)
         
         pygame.display.flip()
 
@@ -85,30 +85,21 @@ class GameScreen:
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_RIGHT:
-                        self.player.vel_x = 500.0
-                    if event.key == pygame.K_LEFT:
-                        self.player.vel_x = -500.0
-                    if event.key == pygame.K_UP:
-                        if self.player.is_collided_platform:
-                            self.player.vel_y = -850.0
+                    self.player.key_down(event.key)
                     if event.key == pygame.K_q:
                         pygame.mixer.music.stop()
                         pygame.quit()
                         self.running = False
 
                 elif event.type == pygame.KEYUP:    
-                    if event.key == pygame.K_RIGHT:
-                        self.player.vel_x = 0.0
-                    if event.key == pygame.K_LEFT:
-                        self.player.vel_x = 0.0 
+                    self.player.key_up(event.key)
                 
                 elif event.type == QUIT:
                     exit()    
                      
             self.physics(self.dt)
             self.collision()
-            self.renderObjects()
+            self.renderObjects(self.dt)
             
             self.dt = pygame.time.Clock().tick(60)/1000.0
         pygame.quit()
