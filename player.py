@@ -99,7 +99,7 @@ class Player(GameObject):
             self.stateRunning = 0
         if key == pygame.K_UP:
             if self.is_collided_platform:
-                self.vel_y = -850.0
+                self.vel_y = -1000.0
 
     def key_up(self, key):
         if key == pygame.K_RIGHT:

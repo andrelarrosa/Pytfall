@@ -51,11 +51,18 @@ class GameScreen:
             obj.y = obj_platform.y - obj.height
             obj.is_collided_platform = True
 
+    def collidedWithGhost(self, obj_ghost: Ghost, obj: Player):
+        exit()
+
     def objectsCollided(self, obj: GameObject, obj_2: GameObject):
         if (obj.object_type == ObjectEnum.PLATFORM ):
             self.collidedWithPlatform(obj, obj_2)
         elif (obj_2.object_type == ObjectEnum.PLATFORM):
             self.collidedWithPlatform(obj_2, obj)
+        elif (obj.object_type == ObjectEnum.GHOST and obj_2.object_type == ObjectEnum.PLAYER):
+            self.collidedWithGhost(obj, obj_2)
+        elif (obj.object_type == ObjectEnum.PLAYER and obj_2.object_type == ObjectEnum.GHOST):
+            self.collidedWithGhost(obj_2, obj)
 
     def collision(self):
         for i in range(0, len(self.objectList) - 1):
