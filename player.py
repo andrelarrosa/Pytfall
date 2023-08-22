@@ -59,8 +59,6 @@ class PlayerSprite(pygame.sprite.Sprite):
                     self.animations[name] = bufferArray
 
 
-#código que pega o evento do teclado tem que ficar aqui
-
 class Player(GameObject):
 
     def __init__(self, x: int, y: int, width: int, height: int, vel_x: float, vel_y: float, is_gravity: bool = False, object_type=ObjectEnum):
