@@ -93,6 +93,17 @@ class Player(GameObject):
             if (newState == ObjectState.IDLELEFT):
                 self.sprite.changeSprite(ObjectState.IDLELEFT.value, 0)
 
+        elif (self.state == ObjectState.IDLELEFT):
+            if (newState == ObjectState.RUNNING):
+                self.stateRunningDt = 0
+                self.stateRunning = 0
+                self.sprite.changeSprite(ObjectState.RUNNING.value, 0)
+
+            elif (newState == ObjectState.RUNNINGLEFT):
+                self.stateRunningDt = 0
+                self.stateRunning = 0
+                self.sprite.changeSprite(ObjectState.RUNNINGLEFT.value, 0)
+
         self.state = newState
         self.updateHitBox()
 
