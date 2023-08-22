@@ -4,6 +4,7 @@ from gameObject import GameObject, ObjectEnum
 from platform import Platform
 from player import Player
 from ghost import Ghost
+from barrel import Barrel
 from engine import Engine
 
 
@@ -24,6 +25,7 @@ class GameScreen:
         self.dt = 0
         self.player = None
         self.ghost = None
+        self.barrel = None
         self.sprite = None
         self.platform = None
         self.engine = None
@@ -63,6 +65,10 @@ class GameScreen:
             self.collidedWithGhost(obj, obj_2)
         elif (obj.object_type == ObjectEnum.PLAYER and obj_2.object_type == ObjectEnum.GHOST):
             self.collidedWithGhost(obj_2, obj)
+        elif (obj.object_type == ObjectEnum.BARREL and obj_2.object_type == ObjectEnum.PLAYER):
+            self.collidedWithGhost(obj, obj_2)
+        elif (obj.object_type == ObjectEnum.PLAYER and obj_2.object_type == ObjectEnum.BARREL):
+            self.collidedWithGhost(obj_2, obj)
 
     def collision(self):
         for i in range(0, len(self.objectList) - 1):
@@ -85,9 +91,11 @@ class GameScreen:
         self.platform = Platform(0, 485, 1080, 20, 0, 0, False,  ObjectEnum.PLATFORM)
         self.player = Player(10, 435, 50, 50, 0, 0, True, ObjectEnum.PLAYER)
         self.ghost = Ghost(1080, 435, 50, 50, 0, 0, True, ObjectEnum.GHOST)
+        self.barrel = Barrel(1080, 435, 50, 50, 0, 0, True, ObjectEnum.BARREL)
         self.adicionarObjeto(self.platform)
         self.adicionarObjeto(self.player)
         self.adicionarObjeto(self.ghost)
+        self.adicionarObjeto(self.barrel)
         self.lacoPrincipal()
 
 
@@ -111,6 +119,7 @@ class GameScreen:
             self.physics(self.dt)
             self.collision()
             self.renderObjects(self.dt)
+            self.barrel.goLeft()
             self.ghost.goLeft()
 
             self.dt = pygame.time.Clock().tick(60)/1000.0
