@@ -61,17 +61,13 @@ class Ghost(GameObject):
                 self.stateRunning = 0
                 self.sprite.changeSprite(ObjectState.RUNNING.value, 0)
 
-        elif (self.state == ObjectState.RUNNING):
-            if (newState == ObjectState.IDLE):
-                self.sprite.changeSprite(ObjectState.IDLE.value, 0)
-
         self.state = newState
         self.updateHitBox()
 
     def goLeft(self):
         self.vel_x = -350.0
         self.changeState(ObjectState.RUNNING)
-        self.stateRunning = 0
+
 
     def renderObjects(self, screen, dt):
         screen.blit(self.sprite.image, (self.x, self.y))
@@ -82,10 +78,10 @@ class Ghost(GameObject):
         if (self.state == ObjectState.RUNNING):
             self.stateRunningDt += dt
 
-            if (self.stateRunningDt >= 0.05):
+            if (self.stateRunningDt >= 0.5):
                 self.stateRunning += 1
 
-                if (self.stateRunning > 4):
+                if (self.stateRunning > 1):
                     self.stateRunning = 0
 
                 self.stateRunningDt = 0
