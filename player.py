@@ -17,6 +17,8 @@ from enum import Enum
 
 
 class ObjectState(Enum):
+    IDLELEFT = 'IdleLeft'
+    RUNNINGLEFT = 'RunningLeft'
     RUNNING = 'Running'
     IDLE = 'Idle'
 
@@ -43,7 +45,7 @@ class PlayerSprite(pygame.sprite.Sprite):
 
     def load(self):
         if os.path.exists('Sprites/Player/'):
-            animationNames = ['Climbing', 'Idle', 'Jumping', 'Running']
+            animationNames = ['Climbing', 'Idle', 'IdleLeft', 'Jumping', 'Running', 'RunningLeft']
             for name in animationNames:
                 if os.path.exists('Sprites/Player/{}'.format(name)):
                     (path, dirs, files) = \
@@ -77,10 +79,19 @@ class Player(GameObject):
                 self.stateRunning = 0
                 self.sprite.changeSprite(ObjectState.RUNNING.value, 0)
 
+            elif (newState == ObjectState.RUNNINGLEFT):
+                self.stateRunningDt = 0
+                self.stateRunning = 0
+                self.sprite.changeSprite(ObjectState.RUNNINGLEFT.value, 0)
+
         elif(self.state == ObjectState.RUNNING):
             if (newState == ObjectState.IDLE):
                 self.sprite.changeSprite(ObjectState.IDLE.value, 0)
 
+
+        elif(self.state == ObjectState.RUNNINGLEFT):
+            if (newState == ObjectState.IDLELEFT):
+                self.sprite.changeSprite(ObjectState.IDLELEFT.value, 0)
 
         self.state = newState
         self.updateHitBox()
@@ -93,7 +104,7 @@ class Player(GameObject):
             self.stateRunning = 0
         if key == pygame.K_LEFT:
             self.vel_x = -500.0
-            self.changeState(ObjectState.RUNNING)
+            self.changeState(ObjectState.RUNNINGLEFT)
             self.stateRunning = 0
         if key == pygame.K_UP:
             if self.is_collided_platform:
@@ -105,7 +116,7 @@ class Player(GameObject):
             self.changeState(ObjectState.IDLE)
         if key == pygame.K_LEFT:
             self.vel_x = 0.0
-            self.changeState(ObjectState.IDLE)
+            self.changeState(ObjectState.IDLELEFT)
 
     def renderObjects(self, screen, dt):
         screen.blit(self.sprite.image, (self.x, self.y))
@@ -121,6 +132,18 @@ class Player(GameObject):
 
                 self.stateRunningDt = 0
                 self.sprite.changeSprite(ObjectState.RUNNING.value, self.stateRunning)
+
+        elif(self.state == ObjectState.RUNNINGLEFT):
+            self.stateRunningDt += dt
+
+            if(self.stateRunningDt >= 0.05):
+                self.stateRunning += 1
+
+                if(self.stateRunning > 4):
+                    self.stateRunning = 0
+
+                self.stateRunningDt = 0
+                self.sprite.changeSprite(ObjectState.RUNNINGLEFT.value, self.stateRunning)
 
 
 
