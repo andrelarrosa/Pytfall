@@ -6,6 +6,7 @@ class ObjectEnum(Enum):
     PLATFORM = 2
     GHOST = 3   
     BARREL = 4
+    PIT = 5
 
 
 class GameObject:

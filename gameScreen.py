@@ -5,6 +5,7 @@ from platform import Platform
 from player import Player
 from ghost import Ghost
 from barrel import Barrel
+from pit import Pit
 from engine import Engine
 
 
@@ -22,7 +23,9 @@ class GameScreen:
         self.bg = pygame.image.load("Sprites/Background.png")
         self.fl = pygame.image.load("Sprites/Environment/Floor.png")
         self.objectList = []
+        self.level = 0
         self.dt = 0
+        self.pit = None
         self.player = None
         self.ghost = None
         self.barrel = None
@@ -69,6 +72,10 @@ class GameScreen:
             self.collidedWithGhost(obj, obj_2)
         elif (obj.object_type == ObjectEnum.PLAYER and obj_2.object_type == ObjectEnum.BARREL):
             self.collidedWithGhost(obj_2, obj)
+        elif (obj.object_type == ObjectEnum.PIT and obj_2.object_type == ObjectEnum.PLAYER):
+            self.collidedWithGhost(obj_2, obj)
+        elif (obj.object_type == ObjectEnum.PLAYER and obj_2.object_type == ObjectEnum.PIT):
+            self.collidedWithGhost(obj, obj_2)
 
     def collision(self):
         for i in range(0, len(self.objectList) - 1):
@@ -79,6 +86,9 @@ class GameScreen:
     def adicionarObjeto(self, obj: GameObject):
         self.objectList.append(obj)
 
+    def destruirObjeto(self, obj: GameObject):
+        self.objectList.remove(obj)
+
     def renderObjects(self, dt):
         self.desenharTela()
         for obj in self.objectList:
@@ -86,17 +96,40 @@ class GameScreen:
 
         pygame.display.flip()
 
-    def initGame(self):
-        self.engine = Engine()
-        self.platform = Platform(0, 485, 1080, 20, 0, 0, False,  ObjectEnum.PLATFORM)
-        self.player = Player(10, 435, 50, 50, 0, 0, True, ObjectEnum.PLAYER)
-        self.ghost = Ghost(1080, 435, 50, 50, 0, 0, True, ObjectEnum.GHOST)
-        self.barrel = Barrel(1080, 435, 50, 50, 0, 0, True, ObjectEnum.BARREL)
-        self.adicionarObjeto(self.platform)
-        self.adicionarObjeto(self.player)
-        self.adicionarObjeto(self.ghost)
-        self.adicionarObjeto(self.barrel)
+    def initGame(self, level):
+        self.level = level
+        if(level == 0):
+            self.platform = Platform(0, 485, 1080, 20, 0, 0, False,  ObjectEnum.PLATFORM)
+            self.player = Player(10, 435, 50, 50, 0, 0, True, ObjectEnum.PLAYER)
+            self.adicionarObjeto(self.platform)
+            self.adicionarObjeto(self.player)
+
+        elif(level == 1):
+            self.player.x = -20
+            self.barrel = Barrel(1080, 435, 50, 50, 0, 0, True, ObjectEnum.BARREL)
+            self.adicionarObjeto(self.barrel)
+            self.barrel.goLeft()
+
+        elif(level == 2):
+            self.destruirObjeto(self.barrel)
+            self.player.x = -20
+            self.ghost = Ghost(1080, 435, 50, 50, 0, 0, True, ObjectEnum.GHOST)
+            self.adicionarObjeto(self.ghost)
+            self.ghost.goLeft()
+
+        elif(level == 3):
+            self.destruirObjeto(self.ghost)
+            self.player.x = -20
+            self.pit = Pit(320, 485, 50, 50, 0, 0, True, ObjectEnum.PIT)
+            self.adicionarObjeto(self.pit)
+
+
         self.lacoPrincipal()
+
+    def checkAlterLevel(self):
+        if (self.player.x >= 1080):
+            self.level += 1
+            self.initGame(self.level)
 
 
 
@@ -118,10 +151,8 @@ class GameScreen:
 
             self.physics(self.dt)
             self.collision()
+            self.checkAlterLevel()
             self.renderObjects(self.dt)
-            self.barrel.goLeft()
-            self.ghost.goLeft()
-
             self.dt = pygame.time.Clock().tick(60)/1000.0
         pygame.quit()
 

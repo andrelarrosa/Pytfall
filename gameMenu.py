@@ -37,7 +37,7 @@ class GameMenu:
                     self.screen.blit(self.backgroundMenu, (0, 0))
                     pygame.mixer.music.load('Sounds/master-of-puppets.wav')
                     pygame.mixer.music.play(-1)
-                    self.gameScreen.initGame()
+                    self.gameScreen.initGame(0)
 
                 elif event.key == pygame.K_q:
                     pygame.mixer.music.stop()
