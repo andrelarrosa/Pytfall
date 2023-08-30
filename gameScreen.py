@@ -28,6 +28,7 @@ class GameScreen:
         self.pit = None
         self.player = None
         self.ghost = None
+        self.ghost1 = None
         self.barrel = None
         self.sprite = None
         self.platform = None
@@ -117,11 +118,11 @@ class GameScreen:
         elif(level == 3):
             self.destruirObjeto(self.ghost)
             self.destruirObjeto(self.platform)
-            
+
             self.platformList = {Platform(0, 485, 500, 1, 0, 0, False,  ObjectEnum.PLATFORM), Platform(700, 485, 540, 1, 0, 0, False, ObjectEnum.PLATFORM)}
             for platform in self.platformList:
                 self.adicionarObjeto(platform)
-                
+
             self.player.x = -20
             self.pit = Pit(501, 485, 50, 50, 0, 0, False, ObjectEnum.PIT)
             self.adicionarObjeto(self.pit)
@@ -131,13 +132,16 @@ class GameScreen:
             self.ghost = Ghost(1080, 435, 50, 50, 0, 0, False, ObjectEnum.GHOST)
             self.adicionarObjeto(self.ghost)
             self.ghost.goLeft()
-        
+
         elif(level == 5):
             self.destruirObjeto(self.ghost)
             self.ghost = Ghost(1080, 435, 50, 50, 0, 0, False, ObjectEnum.GHOST)
+            self.ghost1= Ghost(960, 300, 50, 50, 0, 0, False, ObjectEnum.GHOST)
             self.player.x = -20
             self.adicionarObjeto(self.ghost)
+            self.adicionarObjeto(self.ghost1)
             self.ghost.goLeft()
+            self.ghost1.goLeft()
             self.ghost.stateSin = True
 
 
