@@ -8,6 +8,7 @@ class Platform(GameObject):
 
     def renderObjects(self, screen, dt):
         COLOR = (189, 189, 49)
+        # COLOR = (255,0,0)
         pygame.draw.rect(screen, COLOR, (self.x, self.y, self.width, self.height))
     
 

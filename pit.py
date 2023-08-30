@@ -12,11 +12,11 @@ class ObjectState(Enum):
 class PitSprite(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.animationIndex = 6
+        self.animationIndex = 5
         self.animations = {}
-        self.atual = 6
+        self.atual = 5
         self.load()
-        self.image = self.animations['Running'][5]
+        self.image = self.animations['Running'][4]
         self.rect = self.image.get_rect()
 
     def changeSprite(self, kind, index=None):

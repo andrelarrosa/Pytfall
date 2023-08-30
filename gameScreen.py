@@ -31,6 +31,7 @@ class GameScreen:
         self.barrel = None
         self.sprite = None
         self.platform = None
+        self.platformList = {}
         self.engine = None
         self.running = True
 
@@ -72,10 +73,6 @@ class GameScreen:
             self.collidedWithGhost(obj, obj_2)
         elif (obj.object_type == ObjectEnum.PLAYER and obj_2.object_type == ObjectEnum.BARREL):
             self.collidedWithGhost(obj_2, obj)
-        elif (obj.object_type == ObjectEnum.PIT and obj_2.object_type == ObjectEnum.PLAYER):
-            self.collidedWithGhost(obj_2, obj)
-        elif (obj.object_type == ObjectEnum.PLAYER and obj_2.object_type == ObjectEnum.PIT):
-            self.collidedWithGhost(obj, obj_2)
 
     def collision(self):
         for i in range(0, len(self.objectList) - 1):
@@ -119,10 +116,20 @@ class GameScreen:
 
         elif(level == 3):
             self.destruirObjeto(self.ghost)
+            self.destruirObjeto(self.platform)
+            
+            self.platformList = {Platform(0, 485, 500, 1, 0, 0, False,  ObjectEnum.PLATFORM), Platform(700, 485, 540, 1, 0, 0, False, ObjectEnum.PLATFORM)}
+            for platform in self.platformList:
+                self.adicionarObjeto(platform)
+                
             self.player.x = -20
-            self.pit = Pit(320, 485, 50, 50, 0, 0, True, ObjectEnum.PIT)
+            self.pit = Pit(501, 485, 50, 50, 0, 0, False, ObjectEnum.PIT)
             self.adicionarObjeto(self.pit)
 
+        elif(level == 4):
+            self.ghost = Ghost(1080, 435, 50, 50, 0, 0, True, ObjectEnum.GHOST)
+            self.adicionarObjeto(self.ghost)
+            self.ghost.goLeft()
 
         self.lacoPrincipal()
 
