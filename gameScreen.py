@@ -148,7 +148,9 @@ class GameScreen:
             self.level += 1
             self.initGame(self.level)
 
-
+    def checkFall(self):
+        if(self.player.y > self.platform.y):
+            exit()
 
     def lacoPrincipal(self):
         while self.running:
@@ -170,6 +172,7 @@ class GameScreen:
             self.collision()
             self.checkAlterLevel()
             self.renderObjects(self.dt)
+            self.checkFall()
             self.dt = pygame.time.Clock().tick(60)/1000.0
         pygame.quit()
 
