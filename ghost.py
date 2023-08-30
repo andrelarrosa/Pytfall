@@ -1,3 +1,4 @@
+import math
 import pygame
 import os
 from gameObject import GameObject, ObjectEnum
@@ -6,6 +7,7 @@ from enum import Enum
 class ObjectState(Enum):
     RUNNING = 'Running'
     IDLE = 'Idle'
+    
 
 class GhostSprite(pygame.sprite.Sprite):
     def __init__(self):
@@ -50,8 +52,10 @@ class Ghost(GameObject):
         self.updateHitBox()
         self.animations = {}
         self.state = ObjectState.IDLE
+        self.stateSin = False
         self.stateRunning = 0
         self.stateRunningDt = 0
+        self.angulo = 0
 
     def changeState(self, newState):
         if (self.state == ObjectState.IDLE):
@@ -67,9 +71,15 @@ class Ghost(GameObject):
         self.vel_x = -350.0
         self.changeState(ObjectState.RUNNING)
 
+    def moveSin(self):
+        self.y = math.sin(self.angulo) * 100 + 300
+        self.angulo += (2 * math.pi )/100
 
     def renderObjects(self, screen, dt):
         screen.blit(self.sprite.image, (self.x, self.y))
+
+        if(self.stateSin):
+            self.moveSin()
 
         if(self.x < -1 * self.width):
             self.x = 1080

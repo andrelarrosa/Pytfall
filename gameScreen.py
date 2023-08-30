@@ -127,9 +127,19 @@ class GameScreen:
             self.adicionarObjeto(self.pit)
 
         elif(level == 4):
-            self.ghost = Ghost(1080, 435, 50, 50, 0, 0, True, ObjectEnum.GHOST)
+            self.player.x = -20
+            self.ghost = Ghost(1080, 435, 50, 50, 0, 0, False, ObjectEnum.GHOST)
             self.adicionarObjeto(self.ghost)
             self.ghost.goLeft()
+        
+        elif(level == 5):
+            self.destruirObjeto(self.ghost)
+            self.ghost = Ghost(1080, 435, 50, 50, 0, 0, False, ObjectEnum.GHOST)
+            self.player.x = -20
+            self.adicionarObjeto(self.ghost)
+            self.ghost.goLeft()
+            self.ghost.stateSin = True
+
 
         self.lacoPrincipal()
 
