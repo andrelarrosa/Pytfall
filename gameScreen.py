@@ -136,7 +136,7 @@ class GameScreen:
         elif(level == 5):
             self.destruirObjeto(self.ghost)
             self.ghost = Ghost(1080, 435, 50, 50, 0, 0, False, ObjectEnum.GHOST)
-            self.ghost1= Ghost(960, 300, 50, 50, 0, 0, False, ObjectEnum.GHOST)
+            self.ghost1= Ghost(960, 220, 50, 50, 0, 0, False, ObjectEnum.GHOST)
             self.player.x = -20
             self.adicionarObjeto(self.ghost)
             self.adicionarObjeto(self.ghost1)

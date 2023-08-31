@@ -7,7 +7,7 @@ from enum import Enum
 class ObjectState(Enum):
     RUNNING = 'Running'
     IDLE = 'Idle'
-    
+
 
 class GhostSprite(pygame.sprite.Sprite):
     def __init__(self):
@@ -68,7 +68,7 @@ class Ghost(GameObject):
         self.updateHitBox()
 
     def goLeft(self):
-        self.vel_x = -350.0
+        self.vel_x = -500.0
         self.changeState(ObjectState.RUNNING)
 
     def moveSin(self):
