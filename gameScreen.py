@@ -143,6 +143,9 @@ class GameScreen:
             self.ghost.goLeft()
             self.ghost1.goLeft()
             self.ghost.stateSin = True
+        else:
+            print('Finalizou o jogo! Congratz!')
+            exit()
 
 
         self.lacoPrincipal()
