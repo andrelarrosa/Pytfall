@@ -29,6 +29,7 @@ class GameScreen:
         self.player = None
         self.ghost = None
         self.ghost1 = None
+        self.ghost3 = None
         self.barrel = None
         self.sprite = None
         self.platform = None
@@ -137,11 +138,14 @@ class GameScreen:
             self.destruirObjeto(self.ghost)
             self.ghost = Ghost(1080, 435, 50, 50, 0, 0, False, ObjectEnum.GHOST)
             self.ghost1= Ghost(960, 220, 50, 50, 0, 0, False, ObjectEnum.GHOST)
+            self.ghost2= Ghost(10, 435, 50, 50, 0, 0, False, ObjectEnum.GHOST)
             self.player.x = -20
             self.adicionarObjeto(self.ghost)
             self.adicionarObjeto(self.ghost1)
+            self.adicionarObjeto(self.ghost2)
             self.ghost.goLeft()
             self.ghost1.goLeft()
+            self.ghost2.goLeft()
             self.ghost.stateSin = True
         else:
             print('Finalizou o jogo! Congratz!')
